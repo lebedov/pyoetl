@@ -49,22 +49,23 @@ class OETLProcessor(object):
         Process a file with OrientDB ETL. Display output if `out` is True.
         Returns the execution return code.
         """
-
+        
+        args = self._java_args+[file_name]
         if out:
-            ps = subprocess.Popen(self._java_args+[file_name],
-                                  stdout=subprocess.PIPE)
+            ps = subprocess.Popen(args, stdout=subprocess.PIPE)
             while ps.poll() is None:
                 l = ps.stdout.readline()
                 print l,
             print ps.stdout.read()
             return ps.returncode
         else:
-            return subprocess.call(self._java_args)
+            with open(os.devnull, 'w') as fp:
+                return subprocess.Popen(args, stdout=fp)
 
 if __name__ == '__main__':        
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', help="Display command output.", action='store_true')
-    parser.add_argument('args', nargs=1)
+    parser.add_argument('args', nargs='+')
     args = parser.parse_args()
 
     if not os.environ.has_key('ORIENTDB_DIR'):
