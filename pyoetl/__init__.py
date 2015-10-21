@@ -18,6 +18,20 @@ import sys
 class OETLProcessor(object):
     """
     OrientDB ETL Python wrapper.
+
+    Parameters
+    ----------
+    ORIENTDB_DIR : str
+        Directory of OrientDB installation.
+    JAVA : str
+        Path to `java` executable.
+    JAVA_OPTS : list
+        Options to pass to `java`.
+    
+    Methods
+    -------
+    process(file_name, out=False)
+        Run ETL on specified JSON config file.
     """
 
     def __init__(self, ORIENTDB_DIR, JAVA='java', JAVA_OPTS=[]):
@@ -46,8 +60,19 @@ class OETLProcessor(object):
 
     def process(self, file_name, out=False):
         """
-        Process a file with OrientDB ETL. Display output if `out` is True.
-        Returns the execution return code.
+        Process a file with OrientDB ETL. 
+
+        Parameters
+        ----------
+        file_name : str
+            Path to OrientDB JSON config file.
+        out : bool
+            Display output if `out` is True.
+
+        Returns
+        -------
+        r : int
+            Execution return code.
         """
         
         args = self._java_args+[file_name]
@@ -62,10 +87,12 @@ class OETLProcessor(object):
             with open(os.devnull, 'w') as fp:
                 return subprocess.Popen(args, stdout=fp)
 
-if __name__ == '__main__':        
-    parser = argparse.ArgumentParser()
+def main():
+    description = "OrientDB ETL tool (Python version)."
+    parser = argparse.ArgumentParser(description=description)
+    
     parser.add_argument('-d', help="Display command output.", action='store_true')
-    parser.add_argument('args', nargs='+')
+    parser.add_argument('args', nargs='+', help="OrientDB JSON config files")
     args = parser.parse_args()
 
     if not os.environ.has_key('ORIENTDB_DIR'):
