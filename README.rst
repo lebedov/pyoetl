@@ -14,6 +14,13 @@ some additional features:
 - provides a Python class that can be used 
   to invoke the ETL tool from within a Python program.
 
+.. image:: https://img.shields.io/pypi/v/pyoetl.svg
+    :target: https://pypi.python.org/pypi/pyoetl
+    :alt: Latest Version
+.. image:: https://img.shields.io/pypi/dm/pyoetl.svg
+    :target: https://pypi.python.org/pypi/pyoetl
+    :alt: Downloads
+
 Installation
 ------------
 The package may be installed as follows: ::
