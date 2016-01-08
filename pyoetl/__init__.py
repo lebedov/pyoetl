@@ -4,7 +4,7 @@
 Python wrapper for OrientDB ETL tool.
 """
 
-# Copyright (c) 2015, Lev Givon
+# Copyright (c) 2015-2016, Lev Givon
 # All rights reserved.
 # Distributed under the terms of the BSD license:
 # http://www.opensource.org/licenses/bsd-license
@@ -85,7 +85,7 @@ class OETLProcessor(object):
             return ps.returncode
         else:
             with open(os.devnull, 'w') as fp:
-                return subprocess.Popen(args, stdout=fp)
+                return subprocess.Popen(args, stdout=fp).wait()
 
 def main():
     description = "OrientDB ETL tool (Python version)."
