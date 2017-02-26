@@ -38,14 +38,13 @@ Invoke PyOETL from the command line as follows: ::
 
 Author
 ------
-See the included `AUTHORS.rst`_ file for more information.
-
-.. _AUTHORS.rst: AUTHORS.rst
+See the included `AUTHORS.rst
+<https://github.com/lebedov/pyoetl/blob/master/AUTHORS.rst>`_ file for more
+information.
 
 License
 -------
-This software is licensed under the
-`BSD License <http://www.opensource.org/licenses/bsd-license>`_.
-See the included `LICENSE.rst`_ file for more information.
-
-.. _LICENSE.rst: LICENSE.rst
+This software is licensed under the `BSD License
+<http://www.opensource.org/licenses/bsd-license>`_.  See the included
+`LICENSE.rst <https://github.com/lebedov/pyoetl/blob/master/LICENSE.rst>`_ file
+for more information.
