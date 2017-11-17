@@ -17,9 +17,6 @@ some additional features:
 .. image:: https://img.shields.io/pypi/v/pyoetl.svg
     :target: https://pypi.python.org/pypi/pyoetl
     :alt: Latest Version
-.. image:: https://img.shields.io/pypi/dm/pyoetl.svg
-    :target: https://pypi.python.org/pypi/pyoetl
-    :alt: Downloads
 
 Installation
 ------------
