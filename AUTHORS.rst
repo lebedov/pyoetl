@@ -2,7 +2,7 @@
 
 Authors
 -------
-This software was written and packaged by Lev Givon [1]_. It is based upon the
+This software was written and packaged by Lev E. Givon [1]_. It is based upon the
 OrientDB ETL module [2]_.
 
 pyoetl is developed independently of (and hence not officially endorsed by) 

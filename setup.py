@@ -7,8 +7,8 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'pyoetl'
-VERSION =            '0.1.1'
-AUTHOR =             'Lev Givon'
+VERSION =            '0.1.2'
+AUTHOR =             'Lev E. Givon'
 AUTHOR_EMAIL =       'lev@columbia.edu'
 URL =                'https://github.com/lebedov/pyoetl/'
 DESCRIPTION =        'Python interface to OrientDB ETL tool'
@@ -24,6 +24,8 @@ CLASSIFIERS = [
     'License :: OSI Approved :: BSD License',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 3',
     'Topic :: Software Development',
     'Topic :: Database']
 PACKAGES = find_packages()
@@ -45,5 +47,6 @@ if __name__ == "__main__":
         packages = PACKAGES,
         entry_points = {
             'console_scripts': ['pyoetl=pyoetl:main'],
-            }
+            },
+        install_requires = ['six']
         )

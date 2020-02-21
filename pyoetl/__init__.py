@@ -4,7 +4,7 @@
 Python wrapper for OrientDB ETL tool.
 """
 
-# Copyright (c) 2015-2016, Lev Givon
+# Copyright (c) 2015-2020, Lev E. Givon
 # All rights reserved.
 # Distributed under the terms of the BSD license:
 # http://www.opensource.org/licenses/bsd-license
@@ -14,6 +14,8 @@ import glob
 import os
 import subprocess
 import sys
+
+import six
 
 class OETLProcessor(object):
     """
@@ -27,7 +29,7 @@ class OETLProcessor(object):
         Path to `java` executable.
     JAVA_OPTS : list
         Options to pass to `java`.
-    
+
     Methods
     -------
     process(file_name, out=False)
@@ -48,19 +50,19 @@ class OETLProcessor(object):
         KEYSTORE_PASS = 'password'
         TRUSTSTORE = os.path.join(ORIENTDB_DIR, 'config/cert/orientdb-console.ts')
         TRUSTSTORE_PASS = 'password'
-        SSL_OPTS = ['-Xmx512m', '-Dclient.ssl.enabled=false', 
+        SSL_OPTS = ['-Xmx512m', '-Dclient.ssl.enabled=false',
                     '-Djavax.net.ssl.keyStore=%s' % KEYSTORE,
                     '-Djavax.net.ssl.keyStorePassword=%s' % KEYSTORE_PASS,
                     '-Djavax.net.ssl.trustStore=%s' % TRUSTSTORE,
                     '-Djavax.net.ssl.trustStorePassword=%s' % TRUSTSTORE_PASS]
         self._java_args = [JAVA, '-server']+JAVA_OPTS+ORIENTDB_SETTINGS+SSL_OPTS+\
-                          ['-Dfile.encoding=utf-8', '-Dorientdb.build.number="@BUILD@"', 
+                          ['-Dfile.encoding=utf-8', '-Dorientdb.build.number="@BUILD@"',
                            '-cp', os.path.join(ORIENTDB_DIR, 'lib/*'),
                            'com.orientechnologies.orient.etl.OETLProcessor']
 
     def process(self, file_name, out=False):
         """
-        Process a file with OrientDB ETL. 
+        Process a file with OrientDB ETL.
 
         Parameters
         ----------
@@ -74,14 +76,14 @@ class OETLProcessor(object):
         r : int
             Execution return code.
         """
-        
+
         args = self._java_args+[file_name]
         if out:
             ps = subprocess.Popen(args, stdout=subprocess.PIPE)
             while ps.poll() is None:
                 l = ps.stdout.readline()
-                print l,
-            print ps.stdout.read()
+                six.print_(l, end=' ')
+            six.print_(ps.stdout.read())
             return ps.returncode
         else:
             with open(os.devnull, 'w') as fp:
@@ -90,19 +92,19 @@ class OETLProcessor(object):
 def main():
     description = "OrientDB ETL tool (Python version)."
     parser = argparse.ArgumentParser(description=description)
-    
+
     parser.add_argument('-d', help="Display command output.", action='store_true')
     parser.add_argument('args', nargs='+', help="OrientDB JSON config files")
     args = parser.parse_args()
 
-    if not os.environ.has_key('ORIENTDB_DIR'):
+    if 'ORIENTDB_DIR' not in os.environ:
         raise ValueError('ORIENTDB_DIR not defined')
     ORIENTDB_DIR = os.environ['ORIENTDB_DIR']
 
     JAVA = os.path.join(os.environ['JAVA_HOME'], 'bin/java')
     if not os.path.exists(JAVA):
         JAVA = 'java'
-    if os.environ.has_key('JAVA_OPTS'):
+    if 'JAVA_OPTS' in os.environ:
         JAVA_OPTS = [os.environ['JAVA_OPTS']]
     else:
         JAVA_OPTS = []
